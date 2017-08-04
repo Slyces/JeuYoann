@@ -24,7 +24,7 @@ SECRET_KEY = 'xm1w7-y&6ud(y_1s4#^fk4&cdwxu$wp2gg&pdl=-9tihsjm3h-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'yogame.pythonanywhere.com']
 
 # Application definition
 
@@ -113,5 +113,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 LOGIN_REDIRECT_URL = '/home/'
