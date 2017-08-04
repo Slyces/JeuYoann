@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
+from random import randint
 
 # =============================================================================
+from django.db.models import Count
+
+
 class Game(models.Model):
     pass
 
@@ -34,4 +34,10 @@ class Tag(models.Model):
 # =============================================================================
 class Activity(models.Model):
     text = models.TextField()
-    tags = models.ForeignKey(Tag)
+    tags = models.ManyToManyField(Tag)
+
+    @staticmethod
+    def random():
+        count = Activity.objects.aggregate(count=Count('id'))['count']
+        random_index = randint(0, count - 1)
+        return Activity.objects.all()[random_index]

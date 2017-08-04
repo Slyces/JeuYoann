@@ -1,7 +1,7 @@
 {% extends 'website/includes/base.html' %}
 
 {% block title %}
-    Accueil
+    Partie en cours de création
 {% endblock %}
 
 {% block header %}{% endblock %}
@@ -30,7 +30,7 @@
     <script>
         $(document)
             .ready(function () {
-                $("#id_name").attr('placeholder', 'Saisissez un nom');
+                $('#id_name').attr('placeholder', 'Saisissez un nom');
                 $('.ui.dropdown').dropdown();
             });
     </script>
@@ -55,7 +55,7 @@
                     {% csrf_token %}
                     <div class="ui fluid action input">
                         <input name="name" type="text">
-                        <div class="ui simple compact selection dropdown">
+                        <div class="ui compact selection dropdown">
                             <input name="gender" type="hidden">
                             <i class="dropdown icon"></i>
                             <div class="default text">Gender</div>

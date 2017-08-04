@@ -42,6 +42,10 @@
             Créer une partie
         </a>
         <div class="ui divider"></div>
+        <a href="{% url 'website:new_activity' %}" class="ui large blue fluid button">
+            Créer une activité
+        </a>
+        <div class="ui divider"></div>
             {% if user.is_authenticated %}
                 <a href="{% url 'accounts:logout' %}">
                     <h3>

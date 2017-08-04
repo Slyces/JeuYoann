@@ -1,0 +1,125 @@
+{% extends 'website/includes/base.html' %}
+
+{% block title %}
+    Création d'activité
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document)
+            .ready(function () {
+                $("#id_name").attr('placeholder', 'Saisissez un nouveau tag').val('');
+                $("#id_text").attr('rows', 3).val('');
+                $('.close.icon')
+                    .on('click', function () {
+                        $(this)
+                            .parent()
+                            .hide();
+                    });
+
+                $('.ui.dropdown')
+                    .dropdown({
+                        allowAdditions: true
+                    });
+                {% for gender in genders %}
+                    $('#{{ gender.0 }}')
+                        .on('click', function () {
+                            var old_text = $('#id_text').val();
+                            $('#id_text')
+                                .val(old_text + ' <{{ gender.0 }}> ');
+                        });
+                {% endfor %}
+
+            });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <div class="ui raised segment">
+                <h3> Créer un Tag </h3>
+                <form class="ui fluid form" method="post">
+                    {% csrf_token %}
+                    <div class="ui fluid action input">
+                        {{ tag_form.name }}
+                        <button class="ui blue right icon submit button">
+                            <i class="plus icon"> </i>
+                        </button>
+                    </div>
+                </form>
+                {% if success.tag %}
+                    <div class="ui message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ success.tag }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="ui raised segment">
+                <h3> Créer une activité </h3>
+
+                <div>
+                    {% for gender in genders %}
+                        <button id="{{ gender.0 }}" class="ui secondary button">{{ gender.1 }}</button>
+                    {% endfor %}
+                </div>
+
+                <div class="ui divider"></div>
+
+                <form class="ui fluid form" method="post">
+                    {% csrf_token %}
+
+                    {# List of tags #}
+                    <div class="ui fluid multiple search selection tags dropdown">
+                        <input name="tags" type="hidden">
+                        <a class="dropdown icon"></a>
+                        <div class="default text">Tags</div>
+                        <div class="menu">
+                            {% for tag in tag_list %}
+                                <div class="item" data-value="{{ tag.id }}">{{ tag.name }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {# End of list #}
+
+                    <div class="ui divider"></div>
+
+                    {{ activity_form.text }}
+                    <div class="ui divider"></div>
+                    <button class="ui large fluid blue submit button">Soumettre</button>
+                </form>
+
+                {% if success.activity %}
+                    <div class="ui message">
+                        <i class="close icon"></i>
+                        <div class="header">
+                            {{ success.activity }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

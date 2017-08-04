@@ -12,3 +12,13 @@ class UserForm(forms.Form):
 class PlayerForm(forms.Form):
     name = forms.CharField(max_length=50)
     gender = forms.ChoiceField(choices=models.genders)
+
+
+# =============================================================================
+class ActivityForm(forms.Form):
+    text = forms.CharField(widget=forms.Textarea)
+
+
+# =============================================================================
+class TagForm(forms.Form):
+    name = forms.CharField(max_length=50)

@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^home/?$', views.home, name='home'),
     url(r'^new/game/?$', views.create_game, name='new_game'),
     url(r'^new/game/(\d+)/?$', views.game, name='game'),
-    url(r'playing/(\d+)/?', views.playing, name='playing'),
+    url(r'new/activity/?$', views.new_activity, name='new_activity'),
+    url(r'playing/(\d+)/?$', views.playing, name='playing'),
 ]

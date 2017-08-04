@@ -1,7 +1,7 @@
 {% extends 'website/includes/base.html' %}
 
 {% block title %}
-    Accueil
+    Partie en cours
 {% endblock %}
 
 {% block header %}{% endblock %}
@@ -26,8 +26,11 @@
     <div class="ui middle aligned center aligned grid">
         <div class="column">
             <div class="ui raised segment">
-                <h1>Game playing : {{ current_game.id }}</h1>
+                <h1>{{ activity }}</h1>
             </div>
+            <a class="ui large fluid blue button" href="{% url 'website:playing' current_game.id %}">
+                Suivant
+            </a>
         </div>
     </div>
 {% endblock %}
