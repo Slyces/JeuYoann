@@ -1,0 +1,67 @@
+{% extends 'website/includes/base.html' %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .image {
+            margin-top: -100px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui blue image header">
+                Créez votre compte
+            </h2>
+
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="ui raised segment">
+                    <div class="ui form">
+                        <div class="inline field">
+                            <div class="ui fluid labeled input">
+                                <div class="ui large label">
+                                    <label>Nom d'utilisateur</label>
+                                </div>
+
+                                {{ user_form.username }}
+                            </div>
+                        </div>
+                        <div class="inline field">
+                            <div class="ui fluid labeled input">
+                                <div class="ui large label">
+                                    <label>Mot de passe</label>
+                                </div>
+
+                                {{ user_form.password }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input class="ui fluid large blue submit button" type="submit" value="Register">
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

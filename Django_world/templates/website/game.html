@@ -1,0 +1,92 @@
+{% extends 'website/includes/base.html' %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .image {
+            margin-top: -100px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document)
+            .ready(function () {
+                $("#id_name").attr('placeholder', 'Saisissez un nom');
+                $('.ui.dropdown').dropdown();
+            });
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            {# Liste des joueurs #}
+            {% for player in player_list %}
+                <div class="ui info message">
+                    <div class="header">
+                        {{ player.name }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            {# Ajout d'un nouveau joueur #}
+            <div class="ui raised segment">
+                <form class="ui fluid form" method="post">
+                    {% csrf_token %}
+                    <div class="ui fluid action input">
+                        <input name="name" type="text">
+                        <div class="ui simple compact selection dropdown">
+                            <input name="gender" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Gender</div>
+                            <div class="menu">
+                                {% for gender in genders %}
+                                    <div class="item" data-value="{{ gender.0 }}">
+                                        {{ gender.1 }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <button class="ui blue right icon submit button">
+                            <i class="plus icon"> </i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            {% if integrity_error %}
+                <div class="ui error message">
+                    {{ integrity_error }}
+                </div>
+            {% endif %}
+
+            {# Lancement de la partie #}
+        <a class="ui large blue fluid button" href="{% url 'website:playing' current_game.id %}">
+            Lancer la partie
+        </a>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

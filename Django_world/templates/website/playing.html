@@ -1,0 +1,35 @@
+{% extends 'website/includes/base.html' %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <div class="ui raised segment">
+                <h1>Game playing : {{ current_game.id }}</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

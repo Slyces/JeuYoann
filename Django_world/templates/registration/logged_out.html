@@ -1,0 +1,42 @@
+{% extends 'website/includes/base.html' %}
+
+{% block title %}
+    Logout
+{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .image {
+            margin-top: -100px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui blue image header">
+                <div class="content">
+                    You just logged out
+                </div>
+            </h2>
+            <div class="ui">
+                <a href="{% url 'accounts:login' %}">
+                    <i class="sign in icon"></i> Log back
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

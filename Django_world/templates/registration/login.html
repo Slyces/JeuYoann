@@ -1,0 +1,115 @@
+{% extends 'website/includes/base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block css %}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .image {
+            margin-top: -100px;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document)
+            .ready(function () {
+                $("#id_username").attr('placeholder', 'Please enter your username');
+                $("#id_password").attr('placeholder', 'Please enter your password');
+                $('.ui.form')
+                    .form({
+                        fields: {
+                            email: {
+                                identifier: 'id_username',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Please enter your username'
+                                    },
+                                    {
+                                        type: 'email',
+                                        prompt: 'Please enter a valid username'
+                                    }
+                                ]
+                            },
+                            password: {
+                                identifier: 'id_password',
+                                rules: [
+                                    {
+                                        type: 'empty',
+                                        prompt: 'Please enter your password'
+                                    },
+                                    {
+                                        type: 'length[8]',
+                                        prompt: 'Your password must be at least 8 characters'
+                                    }
+                                ]
+                            }
+                        }
+                    })
+                ;
+            })
+        ;
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <form class="ui large form" action="" method="post">
+                {% csrf_token %}
+                <div class="ui stacked raised segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <input class="ui fluid large blue submit button" type="submit" value="Login">
+                </div>
+            </form>
+            <div class="ui error message">
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+            <div class="ui message">
+                <h3><a href="{% url 'website:register' %}">Sign Up</a></h3>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
