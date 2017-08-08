@@ -39,12 +39,17 @@
                     .dropdown({
                         allowAdditions: true
                     });
+                $('#nimporte')
+                    .on('click', function () {
+                        var old_text = $('#id_text').val();
+                        $('#id_text').val(old_text + '<N>');
+                    });
                 {% for gender in genders %}
                     $('#{{ gender.0 }}')
                         .on('click', function () {
                             var old_text = $('#id_text').val();
                             $('#id_text')
-                                .val(old_text + ' <{{ gender.0 }}> ');
+                                .val(old_text + '<{{ gender.0 }}>');
                         });
                 {% endfor %}
 
@@ -80,8 +85,13 @@
 
                 <div>
                     {% for gender in genders %}
-                        <button id="{{ gender.0 }}" class="ui secondary button">{{ gender.1 }}</button>
+                        <button id="{{ gender.0 }}" class="ui secondary button">
+                            {{ gender.1 }}
+                        </button>
                     {% endfor %}
+                    <button id="N" class="ui secondary button">
+                        N'importe
+                    </button>
                 </div>
 
                 <div class="ui divider"></div>

@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 import django.views as views
 from django.urls import reverse
@@ -24,13 +25,10 @@ def new_activity(request):
         activity_form = ActivityForm(request.POST)
         if activity_form.is_valid():
             activity = Activity.objects.create(text=activity_form.cleaned_data['text'])
-            print('creating activity', activity.text)
             success['activity'] = 'Activité créée avec succès'
             tags_request = request.POST.get('tags')
-            print(request.POST, tags_request)
             if tags_request:
                 tags = [int(x) for x in tags_request.split(',')]
-                print('tags request !', tags)
                 objects = [Tag.objects.get(id=tag) for tag in tags]
                 activity.tags.add(*objects)
         if tag_form.is_valid():
@@ -57,15 +55,10 @@ def replace_balise(match, request):
 
 
 def playing(request, game_id):
-    print('=' * 80)
-    print('Playing the game number', game_id)
     current_game = Game.objects.get(id=game_id)
     players = current_game.player_set
-    print('request :', players)
     text = Activity.random().text
-    print('selected :', text)
     act = re.sub(r'<.>', lambda x, _=players: replace_balise(x, _), text)
-    print('new ? :', act)
     return render(request, 'website/playing.html', context={
         'current_game': current_game,
         'activity': act,
@@ -84,9 +77,13 @@ def create_game(request):
 def game(request, game_id):
     current_game = Game.objects.get(id=game_id)
     player_form = PlayerForm()
-    integrity_error = ""
+    integrity_error = ''
     if request.method == 'POST':
         player_form = PlayerForm(request.POST, prefix='player')
+        tags_request = request.POST.get('tags')
+        if tags_request:
+            tags = [int(x) for x in tags_request.split(',')]
+            tags_list = [Tag.objects.get(id=tag) for tag in tags]
         try:
             Player.objects.create(
                 name=player_form.data['name'],
@@ -103,6 +100,7 @@ def game(request, game_id):
         'player_form': player_form,
         'genders': genders,
         'integrity_error': integrity_error,
+        'tags_list': tags_list,
     })
 
 

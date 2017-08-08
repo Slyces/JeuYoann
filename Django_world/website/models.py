@@ -1,5 +1,5 @@
 from django.db import models
-from random import randint
+from random import choice
 
 # =============================================================================
 from django.db.models import Count
@@ -11,9 +11,8 @@ class Game(models.Model):
 
 # =============================================================================
 genders = (
-    ('H', 'Homme'),
-    ('F', 'Femme'),
-    ('N', 'Neutre'),
+    ('H', 'Garçon'),
+    ('F', 'Fille'),
 )
 
 
@@ -37,7 +36,6 @@ class Activity(models.Model):
     tags = models.ManyToManyField(Tag)
 
     @staticmethod
-    def random():
-        count = Activity.objects.aggregate(count=Count('id'))['count']
-        random_index = randint(0, count - 1)
-        return Activity.objects.all()[random_index]
+    def random(tag_list=None):
+        print(Activity.objects.all())
+        return choice(Activity.objects.all())

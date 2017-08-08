@@ -48,10 +48,10 @@
                     </div>
                 </div>
             {% endfor %}
+            <form class="ui fluid form" method="post">
+                {# Ajout d'un nouveau joueur #}
+                <div class="ui raised segment">
 
-            {# Ajout d'un nouveau joueur #}
-            <div class="ui raised segment">
-                <form class="ui fluid form" method="post">
                     {% csrf_token %}
                     <div class="ui fluid action input">
                         <input name="name" type="text">
@@ -71,8 +71,25 @@
                             <i class="plus icon"> </i>
                         </button>
                     </div>
-                </form>
-            </div>
+
+                </div>
+                <div class="ui raised segment">
+                    {# List of tags #}
+                    <div class="ui fluid multiple search selection tags dropdown">
+                        <input name="tags" type="hidden">
+                        <a class="dropdown icon"></a>
+                        <div class="default text">
+                            Sélectionnez les tags à inclure
+                        </div>
+                        <div class="menu">
+                            {% for tag in tag_list %}
+                                <div class="item" data-value="{{ tag.id }}">{{ tag.name }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {# End of list #}
+                </div>
+            </form>
 
             {% if integrity_error %}
                 <div class="ui error message">
@@ -80,10 +97,12 @@
                 </div>
             {% endif %}
 
+            <div class="ui divider"></div>
+
             {# Lancement de la partie #}
-        <a class="ui large blue fluid button" href="{% url 'website:playing' current_game.id %}">
-            Lancer la partie
-        </a>
+            <a class="ui large blue fluid button" href="{% url 'website:playing' current_game.id %}">
+                Lancer la partie
+            </a>
 
         </div>
     </div>
