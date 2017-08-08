@@ -17,10 +17,18 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^accounts/register$', views.register, name='register'),
+    # Home
+    url('r^$', views.root, name='root'),
     url(r'^home/?$', views.home, name='home'),
+
+    # Accounts
+    url(r'^accounts/register$', views.register, name='register'),
+
+    # Formulaires de création
     url(r'^new/game/?$', views.create_game, name='new_game'),
     url(r'^new/game/(\d+)/?$', views.game, name='game'),
     url(r'new/activity/?$', views.new_activity, name='new_activity'),
+
+    # Partie en cours
     url(r'playing/(\d+)/?$', views.playing, name='playing'),
 ]

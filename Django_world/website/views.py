@@ -10,6 +10,11 @@ import re
 
 
 # =============================================================================
+def root(request):
+    return redirect(reverse('website:home'))
+
+
+# =============================================================================
 def home(request):
     return render(request, 'website/home.html')
 
