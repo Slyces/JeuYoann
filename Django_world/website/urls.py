@@ -18,7 +18,7 @@ from . import views
 
 urlpatterns = [
     # Home
-    url('r^$', views.root, name='root'),
+    url(r'^$', views.root, name='root'),
     url(r'^home/?$', views.home, name='home'),
 
     # Accounts
